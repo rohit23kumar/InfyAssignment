@@ -143,12 +143,12 @@
 			children = (
 				AAECB26720ED190C00DF754F /* AppDelegate.swift */,
 				AAECB26920ED190C00DF754F /* ViewController.swift */,
+				AAECB29820ED204800DF754F /* Services.swift */,
 				AAECB26B20ED190C00DF754F /* Main.storyboard */,
 				AAECB27120ED191600DF754F /* Assets.xcassets */,
 				AAECB27320ED191600DF754F /* LaunchScreen.storyboard */,
 				AAECB27620ED191600DF754F /* Info.plist */,
 				AAECB26E20ED190C00DF754F /* InfyAssignment.xcdatamodeld */,
-				AAECB29820ED204800DF754F /* Services.swift */,
 			);
 			path = InfyAssignment;
 			sourceTree = "<group>";
@@ -182,7 +182,7 @@
 				AAECB26020ED190C00DF754F /* Sources */,
 				AAECB26120ED190C00DF754F /* Frameworks */,
 				AAECB26220ED190C00DF754F /* Resources */,
-				B8400884CFDC274071FCCC02 /* [CP] Embed Pods Frameworks */,
+				5D62AA7517780874C5910D78 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -302,6 +302,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5D62AA7517780874C5910D78 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-InfyAssignment/Pods-InfyAssignment-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InfyAssignment/Pods-InfyAssignment-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6CC248C9615D2417DD1D2244 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -322,7 +342,7 @@
 		};
 		8126895E22E103587F901EEE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -336,26 +356,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B8400884CFDC274071FCCC02 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-InfyAssignment/Pods-InfyAssignment-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InfyAssignment/Pods-InfyAssignment-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BE051258542DD309BA9DC660 /* [CP] Check Pods Manifest.lock */ = {
