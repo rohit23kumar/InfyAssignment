@@ -71,24 +71,26 @@ class ViewController: UITableViewController {
                 cell.setNeedsLayout()
                 tableView.endUpdates()
             }
-            
-            cell.imgView.af_setImage(withURL: imageURL,
-                                     imageTransition: .crossDissolve(0.5),
-                                     runImageTransitionIfCached: true,
-                                     completion:  { response in
-                                        if response.result.error != nil{
-                                            print(response.result.error)
-                                            cell.imgView.image = #imageLiteral(resourceName: "loading")
-                                        }else{
-                                            let imageToCache = response.result.value!
-                                            if obj.imageHref == str{
-                                                cell.imgView.image = imageToCache
-                                                tableView.beginUpdates()
-                                                cell.setNeedsLayout()
-                                                tableView.endUpdates()
+            else{
+                cell.imgView.af_setImage(withURL: imageURL,
+                                         imageTransition: .crossDissolve(0.5),
+                                         runImageTransitionIfCached: true,
+                                         completion:  { response in
+                                            if response.result.error != nil{
+                                                cell.imgView.image = #imageLiteral(resourceName: "loading")
+                                                self.imageCache.setObject(#imageLiteral(resourceName: "loading"), forKey: str as NSString)
+                                            }else{
+                                                let imageToCache = response.result.value!
+                                                if obj.imageHref == str{
+                                                    self.imageCache.setObject(imageToCache, forKey: str as NSString)
+                                                    cell.imgView.image = imageToCache
+                                                    tableView.beginUpdates()
+                                                    cell.setNeedsLayout()
+                                                    tableView.endUpdates()
+                                                }
                                             }
-                                        }
-            })
+                })
+            }
         }
         return cell
     }
