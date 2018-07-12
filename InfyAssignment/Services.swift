@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import Alamofire
 
 struct BasePayload: Decodable {
     let title : String
@@ -43,5 +43,11 @@ struct Service{
                 print("Error occured during json serialisation: ", jsonErr)
             }
             }.resume()
+    }
+}
+
+class Connectivity {
+    class var isConnectedToInternet:Bool {
+        return NetworkReachabilityManager()!.isReachable
     }
 }

@@ -36,6 +36,14 @@ class ViewController: UITableViewController {
         loadService()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if !Connectivity.isConnectedToInternet {
+            let alert = UIAlertController(title: "Not Connected", message: "Phone is not connected to internet.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Dsimiss", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     func loadService() {
         imageCache.removeAllObjects()
         Service.sharedInstance.fetchingData { (data) in
@@ -47,18 +55,28 @@ class ViewController: UITableViewController {
             }
         }
     }
-//    #selector(refresh(_:)
+    
     @objc func handleRefresh(sender:AnyObject) {
         loadService()
     }
     
+    func isIndexEven(index: Int) -> Bool {
+        if index%2 == 0 {
+            return true
+        }else{
+            return false
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : PictureCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! PictureCell
-        if indexPath.row%2 == 0 {
+        
+        if(isIndexEven(index: indexPath.row) == true){
             cell.contentView.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
         }else{
             cell.contentView.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
         }
+        
         let obj = basePayload.rows![indexPath.item]
         cell.titleLabel.text = obj.title
         cell.descriptionLabel.text = obj.description
@@ -181,3 +199,5 @@ class PictureCell: UITableViewCell {
                 fatalError("init(coder:) has not been implemented")
     }
 }
+
+

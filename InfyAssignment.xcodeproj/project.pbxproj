@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5C922C5A35B17A1113B3D3EC /* Pods_InfyAssignmentTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A17AE598CF2F989D5E24A67 /* Pods_InfyAssignmentTests.framework */; };
+		AA8D5AD420F3B376008BA59C /* ResponseFile.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA8D5AD320F3B376008BA59C /* ResponseFile.strings */; };
 		AAECB26820ED190C00DF754F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAECB26720ED190C00DF754F /* AppDelegate.swift */; };
 		AAECB26A20ED190C00DF754F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAECB26920ED190C00DF754F /* ViewController.swift */; };
 		AAECB26D20ED190C00DF754F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAECB26B20ED190C00DF754F /* Main.storyboard */; };
@@ -47,6 +48,7 @@
 		6A17AE598CF2F989D5E24A67 /* Pods_InfyAssignmentTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfyAssignmentTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F89964AA43610822C4E2906 /* Pods-InfyAssignment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfyAssignment.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfyAssignment/Pods-InfyAssignment.debug.xcconfig"; sourceTree = "<group>"; };
 		924FCAFF300BAB6D1A70335F /* Pods_InfyAssignment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfyAssignment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA8D5AD320F3B376008BA59C /* ResponseFile.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = ResponseFile.strings; sourceTree = "<group>"; };
 		AAECB26420ED190C00DF754F /* InfyAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InfyAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAECB26720ED190C00DF754F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAECB26920ED190C00DF754F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				AAECB27320ED191600DF754F /* LaunchScreen.storyboard */,
 				AAECB27620ED191600DF754F /* Info.plist */,
 				AAECB26E20ED190C00DF754F /* InfyAssignment.xcdatamodeld */,
+				AA8D5AD320F3B376008BA59C /* ResponseFile.strings */,
 			);
 			path = InfyAssignment;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				AAECB27520ED191600DF754F /* LaunchScreen.storyboard in Resources */,
 				AAECB27220ED191600DF754F /* Assets.xcassets in Resources */,
 				AAECB26D20ED190C00DF754F /* Main.storyboard in Resources */,
+				AA8D5AD420F3B376008BA59C /* ResponseFile.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
