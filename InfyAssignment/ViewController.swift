@@ -12,9 +12,9 @@ import AlamofireImage
 
 class ViewController: UITableViewController {
     
+    let imageCache = NSCache<NSString, UIImage>()
     let cellIdentifier = "cellIdentifier"
     fileprivate var basePayload = BasePayload(title: "", rows: [ImageRow()])
-    let imageCache = NSCache<NSString, UIImage>()
     lazy var refreshControl1 :UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .red
@@ -25,15 +25,24 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        setTableView()
+        setNavigationBar()
+        loadService()
+    }
+    
+    func setTableView() {
         tableView.register(PictureCell.self, forCellReuseIdentifier: cellIdentifier)
-        tableView.allowsSelection = false 
+        tableView.allowsSelection = false
         tableView.estimatedRowHeight = 117
+        tableView.tableFooterView = UIView()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.refreshControl = refreshControl1
         tableView.refreshControl?.addTarget(self, action: #selector(ViewController.handleRefresh(sender:)), for: UIControlEvents.valueChanged)
-        self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+    }
+    
+    func setNavigationBar() {
+        self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        loadService()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,18 +81,18 @@ class ViewController: UITableViewController {
         let cell : PictureCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! PictureCell
         
         if(isIndexEven(index: indexPath.row) == true){
-            cell.contentView.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
+            cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.8323456645, blue: 0.4732058644, alpha: 0.6971853596)
         }else{
-            cell.contentView.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
+            cell.contentView.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
         }
         
         let obj = basePayload.rows![indexPath.item]
         cell.titleLabel.text = obj.title
         cell.descriptionLabel.text = obj.description
-        let str : String = obj.imageHref ?? ""
+        cell.imageURLString = obj.imageHref ?? ""
         cell.imgView.image = #imageLiteral(resourceName: "loading")
-        if let imageURL: URL = URL(string: str) {
-            if let imageFromCache: UIImage = self.imageCache.object(forKey: str as NSString){
+        if let imageURL: URL = URL(string: cell.imageURLString) {
+            if let imageFromCache: UIImage = self.imageCache.object(forKey: cell.imageURLString as NSString){
                 cell.imgView.image = imageFromCache
                 tableView.beginUpdates()
                 cell.setNeedsLayout()
@@ -96,11 +105,11 @@ class ViewController: UITableViewController {
                                          completion:  { response in
                                             if response.result.error != nil{
                                                 cell.imgView.image = #imageLiteral(resourceName: "loading")
-                                                self.imageCache.setObject(#imageLiteral(resourceName: "loading"), forKey: str as NSString)
+                                                self.imageCache.setObject(#imageLiteral(resourceName: "loading"), forKey: cell.imageURLString as NSString)
                                             }else{
                                                 let imageToCache = response.result.value!
-                                                if obj.imageHref == str{
-                                                    self.imageCache.setObject(imageToCache, forKey: str as NSString)
+                                                if obj.imageHref == cell.imageURLString{
+                                                    self.imageCache.setObject(imageToCache, forKey: cell.imageURLString as NSString)
                                                     cell.imgView.image = imageToCache
                                                     tableView.beginUpdates()
                                                     cell.setNeedsLayout()
@@ -123,81 +132,5 @@ class ViewController: UITableViewController {
     }
 }
 
-class PictureCell: UITableViewCell {
-    let titleLabel : UILabel = {
-        let titleLabel = UILabel()
-        titleLabel.text = "titleLabel Loading...."
-        titleLabel.lineBreakMode = .byWordWrapping
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
-        titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
-        return titleLabel
-    }()
-    let descriptionLabel : UILabel = {
-        let descriptionLabel = UILabel()
-        descriptionLabel.text = "descriptionLabel Loading...."
-        descriptionLabel.lineBreakMode = .byWordWrapping
-        descriptionLabel.textColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
-        descriptionLabel.font = UIFont(name: "Helvetica Neue", size: 8.0)
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        return descriptionLabel
-    }()
-    
-    var imgView : UIImageView = {
-        let imgView = UIImageView(image: #imageLiteral(resourceName: "loading"))
-        imgView.backgroundColor = .clear
-        imgView.clipsToBounds = true
-        imgView.contentMode = UIViewContentMode.scaleAspectFill
-        return imgView
-    }()
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        setupSubViews()
-        
-    }
-    
-    func setupSubViews(){
-        
-        let screen_width = UIScreen.main.bounds.width
-        let x =  (imgView.image?.size.height)! / (imgView.image?.size.width)!
-        let ratio = Double(round(100*x)/100)
-        let newHeight = screen_width*CGFloat(ratio)
-        imgView.frame.size = CGSize(width: screen_width, height: newHeight)
-        addSubview(imgView)
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0" : imgView]))
-        
-        addSubview(descriptionLabel)
-        bringSubview(toFront: descriptionLabel)
-        descriptionLabel.numberOfLines = 0
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0" : descriptionLabel]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v0]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0" : descriptionLabel]))
-        
-        
-        addSubview(titleLabel)
-        bringSubview(toFront: titleLabel)
-        titleLabel.numberOfLines = 0
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0" : titleLabel]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v0]-[v1]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0" : titleLabel, "v1" : descriptionLabel]))
-        
-    }
-    
-    override func setNeedsLayout() {
-        
-        let screen_width = UIScreen.main.bounds.width
-        let x =  (imgView.image?.size.height)! / (imgView.image?.size.width)!
-        let ratio = Double(round(100*x)/100)
-        let newHeight = screen_width*CGFloat(ratio)
-        imgView.frame.size = CGSize(width: screen_width, height: newHeight)
-        self.frame.size.height = newHeight
-        super.setNeedsLayout()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-                fatalError("init(coder:) has not been implemented")
-    }
-}
 
 

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5C922C5A35B17A1113B3D3EC /* Pods_InfyAssignmentTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A17AE598CF2F989D5E24A67 /* Pods_InfyAssignmentTests.framework */; };
 		AA248A3420F75230007D1E83 /* response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA248A3320F7522F007D1E83 /* response.json */; };
+		AA248A3621010C86007D1E83 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA248A3521010C86007D1E83 /* PictureCell.swift */; };
+		AA248A38210110A8007D1E83 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA248A37210110A8007D1E83 /* Cache.swift */; };
 		AA8D5AD420F3B376008BA59C /* ResponseFile.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA8D5AD320F3B376008BA59C /* ResponseFile.strings */; };
 		AAECB26820ED190C00DF754F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAECB26720ED190C00DF754F /* AppDelegate.swift */; };
 		AAECB26A20ED190C00DF754F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAECB26920ED190C00DF754F /* ViewController.swift */; };
@@ -50,6 +52,8 @@
 		8F89964AA43610822C4E2906 /* Pods-InfyAssignment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InfyAssignment.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InfyAssignment/Pods-InfyAssignment.debug.xcconfig"; sourceTree = "<group>"; };
 		924FCAFF300BAB6D1A70335F /* Pods_InfyAssignment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InfyAssignment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA248A3320F7522F007D1E83 /* response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = response.json; path = ../../../../Desktop/response.json; sourceTree = "<group>"; };
+		AA248A3521010C86007D1E83 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
+		AA248A37210110A8007D1E83 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		AA8D5AD320F3B376008BA59C /* ResponseFile.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = ResponseFile.strings; sourceTree = "<group>"; };
 		AAECB26420ED190C00DF754F /* InfyAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InfyAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAECB26720ED190C00DF754F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +152,8 @@
 				AAECB26720ED190C00DF754F /* AppDelegate.swift */,
 				AAECB26920ED190C00DF754F /* ViewController.swift */,
 				AAECB29820ED204800DF754F /* Services.swift */,
+				AA248A3521010C86007D1E83 /* PictureCell.swift */,
+				AA248A37210110A8007D1E83 /* Cache.swift */,
 				AAECB26B20ED190C00DF754F /* Main.storyboard */,
 				AAECB27120ED191600DF754F /* Assets.xcassets */,
 				AAECB27320ED191600DF754F /* LaunchScreen.storyboard */,
@@ -393,7 +399,9 @@
 			files = (
 				AAECB27020ED190C00DF754F /* InfyAssignment.xcdatamodeld in Sources */,
 				AAECB29920ED204800DF754F /* Services.swift in Sources */,
+				AA248A3621010C86007D1E83 /* PictureCell.swift in Sources */,
 				AAECB26A20ED190C00DF754F /* ViewController.swift in Sources */,
+				AA248A38210110A8007D1E83 /* Cache.swift in Sources */,
 				AAECB26820ED190C00DF754F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
