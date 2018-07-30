@@ -17,18 +17,18 @@ let imageCache = NSCache<NSString, UIImage>()
 class PictureCell: UITableViewCell {
     let titleLabel : UILabel = {
         let titleLabel = UILabel()
-        titleLabel.text = "titleLabel Loading...."
+        titleLabel.text = Constants.k_DefaultTitle
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
+        titleLabel.textColor = ColorConstants.kColor_Text_Color
         titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
         return titleLabel
     }()
     let descriptionLabel : UILabel = {
         let descriptionLabel = UILabel()
-        descriptionLabel.text = "descriptionLabel Loading...."
+        descriptionLabel.text = Constants.k_DefaultDescription
         descriptionLabel.lineBreakMode = .byWordWrapping
-        descriptionLabel.textColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
+        descriptionLabel.textColor = ColorConstants.kColor_Text_Color
         descriptionLabel.font = UIFont(name: "Helvetica Neue", size: 12.0)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         return descriptionLabel

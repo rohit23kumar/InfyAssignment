@@ -25,9 +25,8 @@ struct Service{
     
     static let sharedInstance = Service()
     func fetchingData(completion:@escaping (BasePayload) -> ()) {
-        print("Fetching data")
         
-        let jsonURLString = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
+        let jsonURLString = Constants.k_jsonURL
         guard let url = URL(string: jsonURLString) else { return  }
         URLSession.shared.dataTask(with: url) { (data, response, err) in
             guard let data = data else {return}
@@ -40,7 +39,7 @@ struct Service{
                     JSONDecoder().decode(BasePayload.self, from: dataObject!)
                 completion(webDescription)
             }catch let jsonErr{
-                print("Error occured during json serialisation: ", jsonErr)
+                print(Constants.k_jsonSerialisationErrorMsg, jsonErr)
             }
             }.resume()
     }

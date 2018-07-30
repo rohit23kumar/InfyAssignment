@@ -13,7 +13,7 @@ import AlamofireImage
 class ViewController: UITableViewController {
     
     let imageCache = NSCache<NSString, UIImage>()
-    let cellIdentifier = "cellIdentifier"
+    let cellIdentifier = Constants.k_CELLIDENTIFIER
     fileprivate var basePayload = BasePayload(title: "", rows: [ImageRow()])
     lazy var refreshControl1 :UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -41,14 +41,14 @@ class ViewController: UITableViewController {
     }
     
     func setNavigationBar() {
-        self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        self.navigationController?.navigationBar.backgroundColor = ColorConstants.kColor_Navigation_Bar_Color
         self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if !Connectivity.isConnectedToInternet {
-            let alert = UIAlertController(title: "Not Connected", message: "Phone is not connected to internet.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Dsimiss", style: UIAlertActionStyle.default, handler: nil))
+            let alert = UIAlertController(title: Constants.k_NOT_CONNECTED, message: Constants.k_NOT_CONNECTED_MSG, preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: Constants.k_DISMISS, style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
     }
@@ -81,9 +81,9 @@ class ViewController: UITableViewController {
         let cell : PictureCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! PictureCell
         
         if(isIndexEven(index: indexPath.row) == true){
-            cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.8323456645, blue: 0.4732058644, alpha: 0.6971853596)
+            cell.contentView.backgroundColor = ColorConstants.kColor_Even_Cell_Color
         }else{
-            cell.contentView.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
+            cell.contentView.backgroundColor = ColorConstants.kColor_Odd_Cell_Color
         }
         
         let obj = basePayload.rows![indexPath.item]
