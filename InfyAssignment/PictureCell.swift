@@ -21,7 +21,7 @@ class PictureCell: UITableViewCell {
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textColor = ColorConstants.kColor_Text_Color
-        titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
+        titleLabel.font = UIFont(name: Constants.k_DefaultFont, size: 20.0)
         return titleLabel
     }()
     let descriptionLabel : UILabel = {
@@ -29,7 +29,7 @@ class PictureCell: UITableViewCell {
         descriptionLabel.text = Constants.k_DefaultDescription
         descriptionLabel.lineBreakMode = .byWordWrapping
         descriptionLabel.textColor = ColorConstants.kColor_Text_Color
-        descriptionLabel.font = UIFont(name: "Helvetica Neue", size: 12.0)
+        descriptionLabel.font = UIFont(name: Constants.k_DefaultFont, size: 14.0)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         return descriptionLabel
     }()
