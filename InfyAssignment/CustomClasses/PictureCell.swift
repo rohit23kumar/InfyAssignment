@@ -44,7 +44,6 @@ class PictureCell: UITableViewCell {
     }()
     
     var imageURLString : String = ""
-    
     var imageViewHeight: NSLayoutConstraint
     var imageViewWidth: NSLayoutConstraint
     
@@ -54,6 +53,13 @@ class PictureCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupSubViews()
         
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        imageViewHeight = NSLayoutConstraint(item: imgView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
+        imageViewWidth = NSLayoutConstraint(item: imgView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
+        super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
     }
     
     func loadImage(completion:@escaping ()->()) {
@@ -125,12 +131,7 @@ class PictureCell: UITableViewCell {
         }
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        imageViewHeight = NSLayoutConstraint(item: imgView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
-        imageViewWidth = NSLayoutConstraint(item: imgView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
-        super.init(coder: aDecoder)
-        fatalError("init(coder:) has not been implemented")
-    }
+    
 }
 
 
