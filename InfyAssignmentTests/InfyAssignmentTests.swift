@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import InfyAssignment
+import AlamofireImage
 
 class InfyAssignmentTests: XCTestCase {
     
@@ -30,16 +31,54 @@ class InfyAssignmentTests: XCTestCase {
         let vc = ViewController()
         let n = 6
         
-        XCTAssertFalse(vc.isIndexEven(index:n))
+        XCTAssertTrue(vc.isIndexEven(index:n))
     }
     
     func testResponseHasExpectedItemCount(){
         
         XCTAssert(collection.rows?.count == 14, "Collection didnt have 14 rows")
         for obj  in collection.rows! {
-            XCTAssert((obj.title != nil), "Nil title found for index - \(obj)")
-            XCTAssert(obj.description != nil, "Nil description found for index - \(obj)")
-            XCTAssert(obj.imageHref != nil, "Nil imageHref found for index - \(obj)")
+            XCTAssert((obj?.title != nil), "Nil title found for index - \(String(describing: obj))")
+            XCTAssert(obj?.description != nil, "Nil description found for index - \(String(describing: obj))")
+            XCTAssert(obj?.imageHref != nil, "Nil imageHref found for index - \(String(describing: obj))")
+        }
+    }
+    
+    func testURLResponse(){
+        
+        let expectation = self.expectation(description: "loading")
+        Service.sharedInstance.fetchingData { (data) in
+            self.collection = data
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssert(self.collection.rows?.count == 14, "Collection didnt have 14 rows")
+        for obj  in collection.rows! {
+            XCTAssert((obj?.title != nil), "Nil title found for index - \(String(describing: obj))")
+            XCTAssert(obj?.description != nil, "Nil description found for index - \(String(describing: obj))")
+            XCTAssert(obj?.imageHref != nil, "Nil imageHref found for index - \(String(describing: obj))")
+            
+            testURLLoadsImageForURL(urlString: obj?.imageHref)
+        }
+    }
+    
+    func testURLLoadsImageForURL(urlString: String?) {
+        if let str: String = urlString{
+            let expectation = self.expectation(description: "Image from http did load")
+            let imageURL: URL = URL(string: str)!
+            
+            let viewer = UIImageView(frame: CGRect(x: 0, y: 0, width: 300, height: 250))
+            viewer.af_setImage(withURL: imageURL,
+                               imageTransition: .crossDissolve(0.5),
+                               runImageTransitionIfCached: true,
+                               completion: { response in
+                                expectation.fulfill()
+                                
+            })
+            waitForExpectations(timeout: 5, handler: nil)
+            XCTAssert((viewer.image != nil), "Image not loaded for url - \(String(describing: str))")
+        }else{
+            XCTFail("No image URL Found")
         }
     }
 }
