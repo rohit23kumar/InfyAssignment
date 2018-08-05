@@ -11,7 +11,7 @@ import Alamofire
 
 struct BasePayload: Decodable {
     let title : String
-    var rows : [ImageRow]? = []
+    var rows : [ImageRow?]?
 }
 
 struct ImageRow : Decodable{
@@ -33,13 +33,14 @@ struct Service{
             let dataString = String(data: data, encoding: String.Encoding.isoLatin1)
             // Converted to supported string format
             // Unbale to convert the response to String format due to unsupported string content in the response
-            let dataObject = dataString?.data(using: String.Encoding.utf8)
-            do{
-                let webDescription = try
-                    JSONDecoder().decode(BasePayload.self, from: dataObject!)
-                completion(webDescription)
-            }catch let jsonErr{
-                print(Constants.k_jsonSerialisationErrorMsg, jsonErr)
+            if let dataObject = dataString?.data(using: String.Encoding.utf8) {
+                do{
+                    let webDescription = try
+                        JSONDecoder().decode(BasePayload.self, from: dataObject)
+                    completion(webDescription)
+                }catch let jsonErr{
+                    print(Constants.k_jsonSerialisationErrorMsg, jsonErr)
+                }
             }
             }.resume()
     }
@@ -47,6 +48,10 @@ struct Service{
 
 class Connectivity {
     class var isConnectedToInternet:Bool {
-        return NetworkReachabilityManager()!.isReachable
+        if let networkManager = NetworkReachabilityManager() {
+            return networkManager.isReachable
+        } else {
+            return false
+        }
     }
 }

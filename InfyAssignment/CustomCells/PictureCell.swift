@@ -11,9 +11,6 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-let imageCache = NSCache<NSString, UIImage>()
-
-
 class PictureCell: UITableViewCell {
     let titleLabel : UILabel = {
         let titleLabel = UILabel()
@@ -43,11 +40,11 @@ class PictureCell: UITableViewCell {
         return imgView
     }()
     
-    var imageURLString : String = ""
     var imageViewHeight: NSLayoutConstraint
     var imageViewWidth: NSLayoutConstraint
+    var cacheManager = ImageCacheManager()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         imageViewHeight = NSLayoutConstraint(item: imgView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
         imageViewWidth = NSLayoutConstraint(item: imgView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -62,31 +59,43 @@ class PictureCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func loadImage(completion:@escaping ()->()) {
-        if let imageURL: URL = URL(string: imageURLString) {
-            if let imageFromCache: UIImage = imageCache.object(forKey: imageURLString as NSString){
-                self.imgView.image = imageFromCache
-//                setNeedsLayout()
+    func loadImage(fromImageURL imageURL: String? , completion: @escaping ()->()) {
+        
+        guard let imagePath = imageURL else {
+            return
+        }
+        if let imageURL: URL = URL(string: imagePath) {
+            if cacheManager.checkImageCacheExistance(fromURL: imagePath) {
+                let imageData = cacheManager.fetchImageFromCache(imagePath: imagePath)
+                displayImage(image: imageData)
+                setNeedsLayout()
                 completion()
             }
             else{
                 self.imgView.af_setImage(withURL: imageURL,
                                          imageTransition: .crossDissolve(0.5),
                                          runImageTransitionIfCached: true,
-                                         completion:  { response in
+                                         completion: { response in
                                             if response.result.error != nil{
-                                                self.imgView.image = #imageLiteral(resourceName: "loading")
-                                                imageCache.setObject(#imageLiteral(resourceName: "loading"), forKey: self.imageURLString as NSString)
-                                            }else{
+                                                self.cacheManager.saveImageIntoCache(imageURL: imagePath, withImageData: #imageLiteral(resourceName: "loading"))
+                                                self.displayImage(image: self.cacheManager.fetchImageFromCache(imagePath: imagePath))
+                                            } else {
                                                 if let imageToCache = response.result.value{
-                                                imageCache.setObject(imageToCache, forKey: self.imageURLString as NSString)
-//                                                    self.setNeedsLayout()
-//                                                    completion()
+                                                    self.cacheManager.imageCache.setObject(imageToCache, forKey: imagePath as NSString)
+                                                    self.setNeedsLayout()
+                                                    completion()
                                                 }
                                             }
                 })
             }
         }
+    }
+    
+    /// This will load image from cache
+    ///
+    /// - Parameter imageURL: path(URL) to load image form cache.
+    private func displayImage(image : UIImage) {
+        self.imgView.image = image
     }
     
     func setupSubViews(){
@@ -130,8 +139,4 @@ class PictureCell: UITableViewCell {
             return
         }
     }
-    
-    
 }
-
-
