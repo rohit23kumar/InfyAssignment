@@ -10,7 +10,9 @@ import UIKit
 extension ViewController{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : PictureCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! PictureCell
+        guard let cell : PictureCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? PictureCell else{
+            return super .tableView(tableView, cellForRowAt: indexPath)
+            }
         if(isIndexEven(index: indexPath.row) == true){
             cell.contentView.backgroundColor = ColorConstants.kColor_Even_Cell_Color
         }else{
