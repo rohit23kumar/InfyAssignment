@@ -39,4 +39,9 @@ class ImageCacheManager {
     public func saveImageIntoCache(imageURL : String, withImageData image: UIImage) {
         imageCache.setObject(image, forKey: imageURL as NSString)
     }
+    
+    /// This method will empty the cache
+    public func restCache(){
+        imageCache.removeAllObjects()
+    }
 }

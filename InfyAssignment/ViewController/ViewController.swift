@@ -12,7 +12,6 @@ import AlamofireImage
 
 class ViewController: UITableViewController {
     
-    let imageCache = NSCache<NSString, UIImage>()
     let cellIdentifier = Constants.k_CELLIDENTIFIER
     var basePayload = BasePayload(title: "", rows: [ImageRow()])
     lazy var refreshControl1 :UIRefreshControl = {
@@ -54,7 +53,7 @@ class ViewController: UITableViewController {
     }
     
     func loadService() {
-        imageCache.removeAllObjects()
+        ImageCacheManager().restCache()
         Service.sharedInstance.fetchingData { (data) in
             self.basePayload = data
             DispatchQueue.main.async {
